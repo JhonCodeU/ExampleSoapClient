@@ -14,14 +14,19 @@ public class SOAPClient {
             String endpointUrl = "https://campus.udenar.edu.co:443/wsbo_est/wsrecaudoudenar.php";
 
             // Create SOAP XML Request
-            String soapXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+            String bodyXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                     "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
                     "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" " +
                     "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " +
                     "xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" +
                     "   <SOAP-ENV:Body>\n" +
                     "       <consultarRecaudo xmlns=\"http://presentacion.ws.recaudos.v2/\">\n" +
-                    "           <xml><![CDATA[<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                    "           <xml></xml>\n" +
+                    "       </consultarRecaudo>\n" +
+                    "   </SOAP-ENV:Body>\n" +
+                    "</SOAP-ENV:Envelope>";
+            
+            String cDataXml = "<![CDATA[<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "           <consultar-recaudos-input>\n" +
                     "               <canal>99</canal>\n" +
                     "               <clave>0cc1d3nt3</clave>\n" +
@@ -40,10 +45,9 @@ public class SOAPClient {
                     "               <tipo_registro>389</tipo_registro>\n" +
                     "               <usuario>boccidente</usuario>\n" +
                     "           </consultar-recaudos-input>\n" +
-                    "           ]]></xml>\n" +
-                    "       </consultarRecaudo>\n" +
-                    "   </SOAP-ENV:Body>\n" +
-                    "</SOAP-ENV:Envelope>";
+                    "           ]]>";
+            
+            String soapXml = bodyXml.replace("<xml></xml>", cDataXml);
 
             // Open Connection
             URL url = new URL(endpointUrl);
