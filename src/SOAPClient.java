@@ -26,7 +26,7 @@ public class SOAPClient {
                     "   </SOAP-ENV:Body>\n" +
                     "</SOAP-ENV:Envelope>";
             
-            String cDataXml = "<![CDATA[<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+            String cDataXml = "<xml><![CDATA[<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "           <consultar-recaudos-input>\n" +
                     "               <canal>99</canal>\n" +
                     "               <clave>0cc1d3nt3</clave>\n" +
@@ -45,9 +45,11 @@ public class SOAPClient {
                     "               <tipo_registro>389</tipo_registro>\n" +
                     "               <usuario>boccidente</usuario>\n" +
                     "           </consultar-recaudos-input>\n" +
-                    "           ]]>";
+                    "           ]]></xml>";
             
             String soapXml = bodyXml.replace("<xml></xml>", cDataXml);
+            
+            System.out.println(soapXml);
 
             // Open Connection
             URL url = new URL(endpointUrl);
